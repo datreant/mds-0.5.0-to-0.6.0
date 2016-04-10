@@ -65,11 +65,7 @@ if __name__ == '__main__':
 
     newstate = dict()
     
-    ## move the old state file to a name that MDS won't catch
-    oldstatefile = args.simfile + '.old'
-    os.rename(args.simfile, oldstatefile)
-
-    with open(oldstatefile, 'r') as f:
+    with open(args.simfile, 'r') as f:
         oldstate = json.load(f)
 
     ## grab datreant components first
@@ -79,11 +75,15 @@ if __name__ == '__main__':
     ## now, mdsynthesis surgery
     newstate['mdsynthesis'] = dict()
 
-    topdir = os.path.dirname(os.path.abspath(oldstatefile))
+    topdir = os.path.dirname(os.path.abspath(args.simfile))
 
     if args.topuniverse not in oldstate['mds']['universes'].keys():
         raise ValueError("universe '{}' not present "
                          "in given Sim".format(args.topuniverse))
+
+    ## move the old state file to a name that MDS won't catch
+    oldstatefile = args.simfile + '.old'
+    os.rename(args.simfile, oldstatefile)
 
     ## we build a new Sim for each stored Universe
     for uname in oldstate['mds']['universes'].keys():
