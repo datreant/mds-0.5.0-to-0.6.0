@@ -8,7 +8,7 @@ import MDAnalysis as mda
 
 description = """Make a MDSynthesis 0.6.0 Sim from a pre-release Sim.
 
-Prior to the first official release of MDSynthesis, a Sim could multiple
+Prior to the first official release of MDSynthesis, a Sim could carry multiple
 universe definitions. This was removed in favor of a Sim having only a single
 universe, and the schema for the state file of a Sim changed as well.
 
