@@ -63,19 +63,13 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    newstate = dict()
-    
     with open(args.simfile, 'r') as f:
         oldstate = json.load(f)
 
-    ## grab datreant components first
-    newstate['tags'] = oldstate['tags']
-    newstate['categories'] = oldstate['categories']
-
-    ## now, mdsynthesis surgery
-    newstate['mdsynthesis'] = dict()
-
     topdir = os.path.dirname(os.path.abspath(args.simfile))
+
+    if 'mds' not in oldstate.keys():
+        raise IOError("File '{}' already converted.".format(args.simfile))
 
     if args.topuniverse not in oldstate['mds']['universes'].keys():
         raise ValueError("universe '{}' not present "
